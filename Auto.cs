@@ -12,30 +12,50 @@ namespace OOP04
         private double spotrebaNa100;
         private int ujetoCelkem;
         private DateTime rozjezdTime;
-        private TimeSpan dobaJizdyCelkem;
+        private DateTime dobaJizdyCelkem;
         private bool jede;
-        public string GetZnacka()
+        public Auto(string znacka, int ujetoCelkem, DateTime dobaJizdyCelkem, bool jede)
         {
-            return znacka;
-        }
-        public double GetSpotrebaNa100()
-        {
-            return spotrebaNa100;
-        }
-        public int GetUjetoCelkem()
-        {
-            return ujetoCelkem;
-        }
-        public DateTime GetRozjezdTime()
-        {
-            return rozjezdTime;
-        }
-        public TimeSpan GetDobaJizdyCelkem()
-        {
-            return dobaJizdyCelkem;
+            this.znacka = znacka;
+            this.ujetoCelkem = ujetoCelkem;
+            dobaJizdyCelkem = DateTime.Parse("0-0-0000");
+            this.dobaJizdyCelkem = dobaJizdyCelkem;
+            jede = false;
+            this.jede = jede;
         }
         public bool GetJede()
         {
             return jede;
         }
+        public void Rozjed()
+        {
+            jede = true;
+            rozjezdTime = DateTime.Now;
+        }
+        public void Zastav(int ujeteKilometryZaJednuJizdu)
+        {
+            jede = false;
+            ujetoCelkem += ujeteKilometryZaJednuJizdu;
+            TimeSpan ujetoZaJednuJizdu = DateTime.Now - rozjezdTime;
+            dobaJizdyCelkem = dobaJizdyCelkem.AddSeconds(double.Parse(ujetoZaJednuJizdu.ToString())); //aktualizace ujete doby
+        }
+        public double CelkovaSpotreba(double spotrebaNa100)
+        {
+            double celkovaSpotreba = ujetoCelkem / spotrebaNa100;
+            return celkovaSpotreba;
+        }
+        public override string ToString()
+        {
+            string s = "";
+            if(GetJede())
+            {
+                s = "\nAuto jede\nZnačka auta je: " + znacka + "\nSpotřeba auta na 100km je: " + spotrebaNa100 + "\nCelkem ujeto: " + ujetoCelkem + "\nCelková doba jízdy auta: " + dobaJizdyCelkem + "\nCelková spotřeba auta je: " + CelkovaSpotreba(spotrebaNa100);
+            }
+            else
+            {
+                s = "\nAuto nejede\nZnačka auta je: " + znacka + "\nSpotřeba auta na 100km je: " + spotrebaNa100 + "\nCelkem ujeto: " + ujetoCelkem + "\nCelková doba jízdy auta: " + dobaJizdyCelkem + "\nCelková spotřeba auta je: " + CelkovaSpotreba(spotrebaNa100);
+            }
+            return base.ToString() + s;
+        }
+    }
 }
