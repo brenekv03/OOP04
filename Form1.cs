@@ -16,10 +16,18 @@ namespace OOP04
         {
             InitializeComponent();
         }
-
+        Auto auto1 = new Auto("123-ABC", 0, DateTime.MinValue,5, false);
         private void button1_Click(object sender, EventArgs e)
         {
+            auto1.Rozjed();
+            MessageBox.Show(auto1.ToString());
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            auto1.Zastav(200);
+            auto1.CelkovaSpotreba();
+            MessageBox.Show(auto1.ToString());
         }
     }
 }
