@@ -16,7 +16,7 @@ namespace OOP04
         {
             InitializeComponent();
         }
-        Auto auto1 = new Auto("123-ABC", 0, DateTime.MinValue,5, false);
+        Auto auto1 = new Auto("123-ABC", 6);
         private void button1_Click(object sender, EventArgs e)
         {
             auto1.Rozjed();
